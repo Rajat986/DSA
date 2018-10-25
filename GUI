@@ -1,12 +1,4 @@
-  GNU nano 2.9.3                                                    example-1.c                                                               
-
 #include <gtk/gtk.h>
-
-
-
-
-
-
 static void
 print_hello (GtkWidget *widget,
              gpointer   data)
@@ -17,25 +9,6 @@ print_hello (GtkWidget *widget,
 static void
 activate (GtkApplication *app,
           gpointer        user_data)
-{
-  GtkWidget *window;
-  GtkWidget *button;
-  GtkWidget *button_box;
-  GtkWidget *button_box2;
-
-  window = gtk_application_window_new (app);
-  gtk_window_set_title (GTK_WINDOW (window), "Window");
-  gtk_window_set_default_size (GTK_WINDOW (window), 400, 400);
-
-  button_box = gtk_button_box_new (GTK_ORIENTATION_VERTICAL);
-  gtk_container_add (GTK_CONTAINER (window), button_box);
-
-  button = gtk_button_new_with_label ("PUSH");
-  g_signal_connect (button, "clicked", G_CALLBACK (print_hello), NULL);
-  g_signal_connect_swapped (button, "clicked", G_CALLBACK (gtk_widget_destroy), window);
-  
-    GNU nano 2.9.3                                                    example-1.c                                                               
-
 {
   GtkWidget *window;
   GtkWidget *button;
@@ -69,27 +42,6 @@ activate (GtkApplication *app,
   gtk_container_add(GTK_CONTAINER(button_box),button);
   button = gtk_button_new_with_label("2");
   g_signal_connect(button, "clicked", G_CALLBACK(print_hello), NULL);
-
-^G Get Help    ^O Write Out   ^W Where Is    ^K Cut Text    ^J Justify     ^C Cur Pos     M-U Undo       M-A Mark Text  M-] To Bracket
-^X Exit        ^R Read File   ^\ Replace     ^U Uncut Text  ^T To Spell    ^_ Go To Line  M-E Redo       M-6 Copy Text  M-W WhereIs Next
-  GNU nano 2.9.3                                                    example-1.c                                                               
-
-
-  button = gtk_button_new_with_label("POP");
-  g_signal_connect(button, "clicked", G_CALLBACK(print_hello), NULL);
-  g_signal_connect_swapped(button, "clicked",G_CALLBACK(gtk_widget_destroy),window);
-  gtk_container_add(GTK_CONTAINER(button_box),button);
-  
-  button = gtk_button_new_with_label("4");
-  g_signal_connect(button, "clicked", G_CALLBACK(print_hello), NULL);
-  g_signal_connect_swapped(button, "clicked",G_CALLBACK(gtk_widget_destroy),window);
-  gtk_container_add(GTK_CONTAINER(button_box),button);
-  button = gtk_button_new_with_label("3");
-  g_signal_connect(button, "clicked", G_CALLBACK(print_hello), NULL);
-  g_signal_connect_swapped(button, "clicked",G_CALLBACK(gtk_widget_destroy),window);
-  gtk_container_add(GTK_CONTAINER(button_box),button);
-  button = gtk_button_new_with_label("2");
-  g_signal_connect(button, "clicked", G_CALLBACK(print_hello), NULL);
   g_signal_connect_swapped(button, "clicked",G_CALLBACK(gtk_widget_destroy),window);
   gtk_container_add(GTK_CONTAINER(button_box),button);
   button = gtk_button_new_with_label("1");
@@ -106,28 +58,6 @@ main (int    argc,
 {
   GtkApplication *app;
   int status;
-
-
-^G Get Help    ^O Write Out   ^W Where Is    ^K Cut Text    ^J Justify     ^C Cur Pos     M-U Undo       M-A Mark Text  M-] To Bracket
-^X Exit        ^R Read File   ^\ Replace     ^U Uncut Text  ^T To Spell    ^_ Go To Line  M-E Redo       M-6 Copy Text  M-W WhereIs Next
-  GNU nano 2.9.3                                                    example-1.c                                                               
-
-  gtk_container_add(GTK_CONTAINER(button_box),button);
-  button = gtk_button_new_with_label("1");
-  g_signal_connect(button, "clicked", G_CALLBACK(print_hello), NULL);
-  g_signal_connect_swapped(button, "clicked",G_CALLBACK(gtk_widget_destroy),window);
-  gtk_container_add(GTK_CONTAINER(button_box),button);
-
- gtk_widget_show_all (window);
-}
-
-int
-main (int    argc,
-      char **argv)
-{
-  GtkApplication *app;
-  int status;
-
   app = gtk_application_new ("org.gtk.example", G_APPLICATION_FLAGS_NONE);
   g_signal_connect (app, "activate", G_CALLBACK (activate), NULL);
   status = g_application_run (G_APPLICATION (app), argc, argv);
