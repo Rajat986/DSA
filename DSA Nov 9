@@ -1,0 +1,163 @@
+#include <gtk/gtk.h>
+struct Stack
+{
+        int size;
+        int top;
+};
+typedef struct Stack stack;
+
+int push_f(stack *s)
+{
+        if(s->top == s->size-1)
+        {
+                return 11;
+        }
+        s->top++;
+
+        return 0;
+}
+
+int pop_f(stack *s)
+{
+        if(s -> top == -1)
+        {
+                return 22;
+        }
+        s->top--;
+        return 0;
+}
+
+int display_f(stack s)
+{
+        if(s.top == -1)
+        {
+                return 11;
+        }
+        for(int i=s.top;i >= 0;i--)
+        {
+                printf("%d\n",i+1);
+        }
+        return 0;
+}
+
+void print_got (GtkWidget *widget,gpointer data)
+{
+  g_print ("Got A button\n");
+}
+
+void push_got (GtkWidget *widget,GtkWidget *data, GtkWidget *data2)
+{
+  GtkWidget *button;
+  g_print ("Pressed PUSH button\n");
+
+
+  	button = gtk_button_new_with_label ("Pushed BUTTON");
+
+  	gtk_fixed_put(GTK_FIXED(data), button, 100, 200+50);
+  	gtk_widget_set_size_request(button, 80, 30);
+
+	gtk_widget_show_all(data2);
+
+}
+
+void pop_got (GtkWidget *widget,gpointer   data)
+{
+  g_print ("Pressed POP button\n");
+}
+
+
+void activate (GtkApplication* app, gpointer user_data)
+{
+  GtkWidget *window;
+  GtkWidget *fixed;
+
+  GtkWidget *button;
+
+  window = gtk_application_window_new (app);
+  gtk_window_set_title(GTK_WINDOW (window), "Window");
+  gtk_window_set_default_size (GTK_WINDOW (window), 600, 600);
+  gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
+
+
+  fixed = gtk_fixed_new();
+  gtk_container_add (GTK_CONTAINER (window), fixed);
+
+  int i=1;
+
+  button = gtk_button_new_with_label ("PUSH");
+  g_signal_connect (button, "clicked", G_CALLBACK (push_got), fixed);
+
+  gtk_fixed_put(GTK_FIXED(fixed), button, 400, 50);
+  gtk_widget_set_size_request(button, 80, 30);
+
+
+
+  /*gtk_container_add (GTK_CONTAINER (fixed), button); */
+
+  button = gtk_button_new_with_label ("POP");
+  g_signal_connect (button, "clicked", G_CALLBACK (pop_got), NULL);
+
+  gtk_fixed_put(GTK_FIXED(fixed), button, 400, 100);
+  gtk_widget_set_size_request(button, 80, 30);
+
+  /*gtk_container_add (GTK_CONTAINER (fixed), button); */
+
+
+  for(int i=0;i<5;i++)
+  {
+
+  	button = gtk_button_new_with_label ("TEST BUTTON");
+  	g_signal_connect (button, "clicked", G_CALLBACK (print_got), NULL);
+  	g_signal_connect_swapped (button, "clicked", G_CALLBACK (gtk_widget_destroy), window);
+
+  	gtk_fixed_put(GTK_FIXED(fixed), button, 200, 200+(50*i));
+  	gtk_widget_set_size_request(button, 80, 30);
+
+	gtk_widget_show_all(window);
+  }
+
+}
+
+
+int main (int    argc, char **argv)
+{
+  GtkApplication *app;
+
+  stack s;
+  printf("Enter size of stack: ");
+  scanf("%d",&s.size);
+  s.top=-1;
+
+  int pu,po;
+
+  printf("Enter number of times you want to PUSH: ");
+  scanf("%d",&pu);
+  printf("Enter number of times you want to POP: ");
+  scanf("%d",&po);
+
+  int z=pu+po;
+  int test[z];
+
+
+  for(int i=0;i < pu;i++)
+  {
+        test[i]=push_f(&s);
+  }
+
+  for(int j=pu;j < z;j++)
+  {
+        test[j]=pop_f(&s);
+  }
+
+  int di=display_f(s);
+
+
+  int status;
+
+  app = gtk_application_new ("org.gtk.example", G_APPLICATION_FLAGS_NONE);
+  g_signal_connect (app, "activate", G_CALLBACK (activate), NULL);
+  status = g_application_run (G_APPLICATION (app), argc, argv);
+  g_object_unref (app);
+
+  return status;
+}
