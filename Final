@@ -76,8 +76,10 @@ void push_got (GtkWidget *widget,GtkWidget *data, GtkWidget *data2)
 void pop_got (GtkWidget *widget,GtkWidget *data,GtkWidget *data2)
 {
         GtkWidget *button;
+	g_print ("Pressed POP button\n");
 	pop_f(&(((struct t *)data2)->s),&button);
         gtk_container_remove (GTK_CONTAINER(((struct t *)data2)->fixed),button);
+	count--;
 	gtk_widget_show_all(((struct t *)data2)->window);
 
 }
